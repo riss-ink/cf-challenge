@@ -27,15 +27,39 @@ The poll feature must contain the following:
 
 
 ## Installation
+```bash
+    mv .env.example .env
+```
+Make the following changes to the .env
+
+```bash
+DB_HOST=mysql
+DB_USERNAME=sail
+DB_PASSWORD=password
+```
+then do the following
+
+```bash
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php82-composer:latest \
+    composer install --ignore-platform-reqs
+```
 
 ```bash
     alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
     sail up
+    sail artisan key:generate
     sail artisan migrate --seed
-    sail npm run build
+    sail npm install
     sail npm run dev
 ```
 url should be localhost
+
+for testing admin use email "admin@admin.com" and for users use "test@test.com"
+password for both is: Cardinal1234!
 ## Process
 
 I chose to use Vuejs and Intertia with this project. Not only is this the stack I'm most comfortable with, but also Neil mentioned not being super familar with it so I thought this would be a nice little showcase of how it works. I set up the blank application using Laravel Jetstream.
